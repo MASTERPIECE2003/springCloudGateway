@@ -1,0 +1,23 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: springCloudGateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: utilisateur_route
+          uri: lb://utilisateurs-service
+          predicates:
+            - Path=/utilisateurs/**
+        - id: commande_route
+          uri: lb://commande-service
+          predicates:
+            - Path=/commandes/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
